@@ -41,7 +41,7 @@ Variables are used in this analysis:
 
 ### Modules (acquire.py + prepare.py)
 
-1. Test acquire function
+1. Write SQL query to acquire the data from mysql server, then test acquire function
 2. Add to acquire.py module
 3. Write code to clean data in notebook
 4. Write code to split data in notebook
@@ -49,7 +49,13 @@ Variables are used in this analysis:
 8. Add all 3 functions (or more) to prepare.py file
 9. Import into notebook and test functions
 
-## Missing Values (report.ipynb)
+### Acquire the Zillow data
+
+1. select bedroom, bathroom, square_feet, fips, yearbuilt, house_value and tax amount from zillow.properties_2017 and rename the columns at the same time
+2. left join zillow.predictions_2017 and select transaction date like '2017%%'
+3. then choose prepertylandusetypeid = 261 which is single family properties code
+
+### Missing Values (report.ipynb)
 
 Missing value:
 1. square_ft       82
@@ -58,15 +64,21 @@ Missing value:
 4. house_value      1
 5. tax              4
 
-There are 203 missing values, the percentage of missing values is only 0.04%, so I will just drop them.
+There are 203 missing values, the percentage of missing values is only 0.4%, so I will just drop them.
 
-## Data Split (prepare.py (def function), report.ipynb (run function))
+### Convert data type
+convert bedroom, yearbuilt, square_ft and fips into int.
+
+### Set up a cut-off line to analyze majority of data
+bedroom <= 6, bathroom <= 6, house_value < 2,000,000
+
+### Data Split (prepare.py (def function), report.ipynb (run function))
 
 * train = 56%
 * validate = 24%
 * test = 20%
 
-## Using your modules (report.ipynb)
+### Using your modules (report.ipynb)
 once acquire.py and prepare.py are created and tested, import into final report notebook to be ready for use.
 
 ## Set the Data Context
@@ -137,7 +149,7 @@ The baseline value I set for train and validate set is the mean of house value o
 
 ## Develop 5 Models (Report.ipynb)
 
-1. Multiple Regression
+1. Linear Regression
 2. Lasso-Lars
 3. TweedieRegressor
 4. 2nd degree Polynomial
